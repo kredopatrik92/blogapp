@@ -15,12 +15,17 @@ An Application consists of basic authentication and CRUD operation.
 - Run npm run dev
 
 ## Unit Testing
-### Added Unit Tests
+### Authentication Tests
 
-- Run php artisan test --filter=BlogAddEdit
-- Run php artisan test --filter=BlogDetails
-- Run php artisan test --filter=DeleteModal
-- Run php artisan test --filter=UpvoteDownvote
+- php artisan test --filter=Registration
+- php artisan test --filter=Authentication
+
+### CRUD Operation Tests
+
+- php artisan test --filter=BlogAddEdit
+- php artisan test --filter=BlogDetails
+- php artisan test --filter=DeleteModal
+- php artisan test --filter=UpvoteDownvote
 
 ### All Tests
 
