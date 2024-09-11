@@ -42,7 +42,7 @@
                                 <span class="material-symbols-outlined text-lg">delete</span>
                                 Delete
                             </button>
-                            <a href="{{route('blog.edit', ['post' => $post->id])}}" class="bg-black text-white rounded-lg px-4 py-2 flex items-center justify-center gap-1 text-sm w-full lg:w-auto">
+                            <a href="{{'/blog/edit/'. $post->id}} " class="bg-black text-white rounded-lg px-4 py-2 flex items-center justify-center gap-1 text-sm w-full lg:w-auto">
                                 <span class="material-symbols-outlined text-lg">edit</span>
                                 Edit
                             </a>

@@ -23,7 +23,7 @@
                 <div class="flex flex-col">
                     <div class="flex flex-col">
                         <label class="text-sm lg:text-lg" for="blog-title">Title</label>
-                        <input class="text-sm lg:text-lg border border-gray-300 rounded-lg focus:outline-none" wire:model="form.title" id="blog-title" type="text"/>
+                        <input class="text-sm lg:text-lg border border-gray-300 rounded-lg focus:outline-none" wire:model="form.title" id="blog-title" name="blog-title" type="text"/>
                     </div>
                     @error('form.title') <span class="text-red-400">{{$message}}</span> @enderror
                 </div>
@@ -39,7 +39,7 @@
                             @endif
                         @endif
 
-                        <input class="border border-gray-300 rounded-lg focus:outline-none p-2 text-sm lg:text-lg"  wire:model="form.image" id="blog-image" type="file"/>
+                        <input class="border border-gray-300 rounded-lg focus:outline-none p-2 text-sm lg:text-lg"  wire:model="form.image" id="blog-image" name="blog-image" type="file"/>
                     </div>
                     @error('form.image') <span class="text-red-400">{{$message}}</span> @enderror
                 </div>
@@ -48,7 +48,7 @@
                     <div class="flex flex-col">
                         <label class="text-sm lg:text-lg" for="blog-description">Description</label>
                         <div class="text-editor">
-                            <livewire:quill-text-editor wire:model="form.description" theme="snow"/>
+                            <livewire:quill-text-editor wire:model="form.description" theme="snow" id="description" name="description"/>
                         </div>
 
                     </div>

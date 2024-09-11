@@ -83,8 +83,8 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
 
-            <select class="rounded-lg border border-gray-300 w-full shadow-sm" wire:model="role">
-                <option class="p-2" value="user">User</option>
+            <select class="rounded-lg border border-gray-300 w-full shadow-sm" id="role" name="role" wire:model="role">
+                <option class="p-2" value="user" selected>User</option>
                 <option class="p-2" value="admin">Admin</option>
             </select>
 

@@ -35,6 +35,7 @@ class BlogAddEdit extends Component
             ]
         );
 
+        $this->reset();
         if(isset($this->post))
             $this->redirect('/blog/'. $this->post->id);
         else
