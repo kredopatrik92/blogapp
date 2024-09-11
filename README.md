@@ -27,4 +27,9 @@ An Application consists of basic authentication and CRUD operation.
 - Run php artisan test
 
 
+## Notes
+
+After running tests must need to re-run "php artisan db:seed" before proceeding to test the application. In order to have its roles and permissions. 
+
+
 
