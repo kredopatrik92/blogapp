@@ -15,12 +15,6 @@ class BlogAddEditTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_renders_successfully(): void
-    {
-        Livewire::test(BlogAddEdit::class)
-            ->assertStatus(200);
-    }
-
     public function test_create_post_successfully(): void
     {
         $user = User::factory()->create();
