@@ -11,6 +11,7 @@ An Application consists of basic authentication and CRUD operation.
 - Run npm install
 - Configure the database in the .env file
 - Run php artisan migrate
+- Run php artisan db:seed
 - Run npm run dev
 
 
