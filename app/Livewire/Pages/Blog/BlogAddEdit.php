@@ -49,7 +49,6 @@ class BlogAddEdit extends Component
             $this->form->title = $this->post->title;
             $this->form->description = $this->post->description;
             $this->image = Storage::url($this->post->image);
-//            $this->form->image = Storage::url($this->post->image);
         }
         return view('livewire.pages.blog.blog-add-edit');
     }

@@ -3,10 +3,8 @@
 namespace App\Livewire\Pages\Blog;
 
 use App\Models\Blog;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class BlogIndex extends Component
 {
@@ -19,7 +17,9 @@ class BlogIndex extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
     }
-    public function loadMore(){
+
+    public function loadMore()
+    {
         $this->reset();
         $this->perPage = $this->perPage + 4;
 

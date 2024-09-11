@@ -7,7 +7,11 @@
     <div class="max-w-7xl mx-auto sm:px-6 px-2 lg:px-8">
         <div class="flex flex-col gap-4 lg:gap-8">
             <div class="w-full flex justify-between">
-                <a href="javascript:history.go(-1)" class="material-symbols-outlined cursor-pointer">arrow_back</a>
+                <div class="flex gap-4">
+                    <a href="javascript:history.go(-1)" class="material-symbols-outlined cursor-pointer">arrow_back</a>
+                    <h2 class="text-xl font-semibold">{{isset($post) ? 'Edit Blog' : 'New Blog' }}</h2>
+                </div>
+
                 {{--<a href="javascript:history.go(-1)" class="bg-red-600 text-white font-semibold rounded-lg px-4 py-2 w-[100px] text-center">Cancel</a>--}}
                 <button wire:click="save" class="bg-black text-white rounded-lg px-4 py-2 flex items-center justify-center gap-1 text-sm">
                     <span class="material-symbols-outlined">save</span>
