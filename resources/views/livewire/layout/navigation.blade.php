@@ -47,7 +47,7 @@ new class extends Component
             <li class="text-sm"><a href="">Videos</a></li>
             <li class="text-sm"><a href="">Podcast</a></li>
         </ul>
-        <div class="absolute z-10 flex flex-col lg:hidden right-0 top-0 bg-[#171E21] h-full transition duration-150 ease-in-out {{$showNav ? 'translate-x-0' : 'translate-x-full'}}">
+        <div class="fixed z-10 flex flex-col lg:hidden right-0 top-0 bg-[#171E21] h-full transition duration-150 ease-in-out {{$showNav ? 'translate-x-0' : 'translate-x-full'}}">
             <div class="flex justify-end w-full p-4">
                 <button wire:click="toggleNav" class="material-symbols-outlined text-white">
                     close

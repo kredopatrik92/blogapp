@@ -5,22 +5,23 @@ namespace App\Livewire\Components;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Attributes\Reactive;
 
 class UpvoteDownvote extends Component
 {
-    public $totalCount = 0;
-    public $isVotedUp = false;
-    public $isVotedDown = false;
+    public $totalViewCount = 0;
+
+    public $totalVoteCount = 0;
+    public $isVoted = false;
 
     public Model $model;
 
     public function mount()
     {
-        $this->totalCount = $this->model->votes()->sum('vote');
-
+        $this->totalVoteCount = $this->model->votes()->count();
+        $this->totalViewCount = $this->model->views()->count();
         if(Auth::check()){
-            $this->isVotedUp = $this->model->isVotedByUser(auth()->user(), 1) ? true : false;
-            $this->isVotedDown = $this->model->isVotedByUser(auth()->user(), -1) ? true : false;
+            $this->isVoted = $this->model->isVotedByUser(auth()->user()) ? true : false;
         }
     }
 
@@ -29,76 +30,39 @@ class UpvoteDownvote extends Component
         return view('livewire.components.upvote-downvote');
     }
 
-    public function upVote()
+    public function toggleVote()
     {
-        //undo upvote
-        if($this->model->isVotedByUser(auth()->user(), 1)){
-            $this->deleteVote(1);
-            $this->setVoteCountVariable();
-
-            $this->isVotedUp = false;
-
-            return;
+        if($this->model->isVotedByUser(auth()->user())){
+            $this->deleteVote();
+            $this->isVoted = false;
         }else{
-            $this->storeVote(1);
-            $this->isVotedUp = true;
-
-            //Remove downVote (if already downvoted)
-            $this->deleteVote(-1);
-            $this->isVotedDown = false;
-
-            $this->setVoteCountVariable();
-
-            return;
+            $this->storeVote();
+            $this->isVoted = true;
         }
+
+        $this->setVoteCountVariable();
     }
 
-    public function downVote()
-    {
-        //undo upvote
-        if($this->model->isVotedByUser(auth()->user(), -1)){
-            $this->deleteVote(-1);
-            $this->setVoteCountVariable();
 
-            $this->isVotedDown = false;
-
-            return;
-        }else{
-            $this->storeVote(-1);
-            $this->isVotedDown = true;
-
-            //Remove downVote (if already upvoted)
-            $this->deleteVote(1);
-            $this->isVotedUp = false;
-
-            $this->setVoteCountVariable();
-
-            return;
-        }
-    }
-
-    public function deleteVote($value)
+    public function deleteVote()
     {
         $this->model->votes()
             ->where([
-                'user_id' => auth()->user()->id,
-                'vote' => $value
+                'user_id' => auth()->user()->id
             ])
             ->delete();
     }
 
-    public function storeVote($value)
+    public function storeVote()
     {
         $this->model->votes()->create([
-            'user_id' => auth()->user()->id,
-            'vote' => $value
+            'user_id' => auth()->user()->id
         ]);
     }
 
     public function setVoteCountVariable()
     {
         $this->model->refresh();
-
-        $this->totalCount = $this->model->votes()->sum('vote');
+        $this->totalVoteCount = $this->model->votes()->count();
     }
 }

@@ -22,11 +22,21 @@ class Blog extends Model
         return $this->morphMany(Vote::class, 'voteable');
     }
 
-    public function isVotedByUser($user, $vote)
+    public function views(){
+        return $this->morphMany(View::class, 'viewable');
+    }
+
+    public function isVotedByUser($user)
     {
         return $this->votes()->where([
-            'user_id' => $user->id,
-            'vote' => $vote
+            'user_id' => $user->id
+        ])->exists();
+    }
+
+    public function isViewedByUser($user)
+    {
+        return $this->views()->where([
+            'user_id' => $user->id
         ])->exists();
     }
 }
