@@ -25,17 +25,16 @@ class UpvoteDownvoteTest extends TestCase
             'description' => 'This is sample description by tester'
         ]);
 
-        $this->assertEquals(0, $post->votes()->sum('vote'));
+        $this->assertEquals(0, $post->votes()->count());
 
         Livewire::actingAs($user)
             ->test(UpvoteDownvote::class, ['model' => $post])
-            ->call('upVote')
-            ->assertViewHas('isVotedUp', true)
-            ->assertViewHas('isVotedDown', false)
-            ->assertSeeHtml('<i class="up-vote material-symbols-outlined text-[36px] lg:text-[48px] leading-[0.5em] flex text-orange-600">');
+            ->assertViewHas('isVoted', false)
+            ->call('toggleVote')
+            ->assertViewHas('isVoted', true);
 
 
-        $this->assertEquals(1, $post->votes()->sum('vote'));
+        $this->assertEquals(1, $post->votes()->count());
     }
 
     public function test_down_vote_successfull(): void
@@ -48,15 +47,18 @@ class UpvoteDownvoteTest extends TestCase
             'description' => 'This is sample description by tester'
         ]);
 
-        $this->assertEquals(0, $post->votes()->sum('vote'));
+        $post->votes()->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertEquals(1, $post->votes()->count());
 
         Livewire::actingAs($user)
             ->test(UpvoteDownvote::class, ['model' => $post])
-            ->call('downVote')
-            ->assertViewHas('isVotedDown', true)
-            ->assertViewHas('isVotedUp', false)
-            ->assertSeeHtml('<i class="down-vote material-symbols-outlined text-[36px] lg:text-[48px] leading-[0.5em] flex text-orange-600">');
+            ->assertViewHas('isVoted', true)
+            ->call('toggleVote')
+            ->assertViewHas('isVotedUp', false);
 
-        $this->assertEquals(-1, $post->votes()->sum('vote'));
+        $this->assertEquals(0, $post->votes()->count());
     }
 }
